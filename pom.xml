@@ -19,7 +19,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -50,7 +49,6 @@
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
@@ -62,8 +60,4 @@
 		</repository>
 	</distributionManagement>
 
-	<build>
-		<plugins>
-		</plugins>
-	</build>
 </project>
