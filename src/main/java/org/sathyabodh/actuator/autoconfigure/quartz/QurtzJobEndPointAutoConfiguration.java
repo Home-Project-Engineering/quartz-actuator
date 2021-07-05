@@ -4,7 +4,7 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.sathyabodh.actuator.quartz.QuartzJobEndPoint;
 import org.sathyabodh.actuator.quartz.QuartzJobEndPointWebExtension;
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -20,7 +20,7 @@ public class QurtzJobEndPointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnEnabledEndpoint
+	@ConditionalOnAvailableEndpoint
 	public QuartzJobEndPoint quartzJobEndPoint(Scheduler scheduler) {
 		return new QuartzJobEndPoint(scheduler);
 	}

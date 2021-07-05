@@ -4,7 +4,7 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.sathyabodh.actuator.quartz.QuartzTriggerEndPoint;
 import org.sathyabodh.actuator.quartz.QuartzTriggerEndPointWebExtension;
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -20,7 +20,7 @@ public class QuartzTriggerEndPointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnEnabledEndpoint
+	@ConditionalOnAvailableEndpoint
 	public QuartzTriggerEndPoint quartzTriggerEndPoint(Scheduler scheduler){
 		return new QuartzTriggerEndPoint(scheduler);
 	}
