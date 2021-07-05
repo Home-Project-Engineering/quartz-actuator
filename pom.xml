@@ -58,35 +58,12 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Illia-Shchur Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com//Home</url>
+			<url>https://maven.pkg.github.com/Illia-Shchur/quartz-acutator</url>
 		</repository>
 	</distributionManagement>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.asciidoctor</groupId>
-				<artifactId>asciidoctor-maven-plugin</artifactId>
-				<version>1.5.6</version>
-				<executions>
-					<execution>
-						<id>generate-docs</id>
-						<phase>package</phase>
-						<goals>
-							<goal>process-asciidoc</goal>
-						</goals>
-						<configuration>
-							<backend>html</backend>
-							<doctype>book</doctype>
-							<attributes>
-								<snippets>${snippetsDirectory}</snippets>
-							</attributes>
-							<sourceDirectory>src/main/asciidoc</sourceDirectory>
-							<outputDirectory>target/generated-docs</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 </project>
