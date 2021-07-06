@@ -1,25 +1,19 @@
 package org.sathyabodh.actuator.quartz.model;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class GroupModel<T> {
 
-	private Map<String, List<T>> groups = new HashMap<>();
+	private final Map<String, List<T>> groups = new HashMap<>();
 
 	public void add(String group, T model){
-		List<T> models = getGroups().get(group);
-		if(models == null){
-			models = new ArrayList<>();
-			getGroups().put(group, models);
-		}
+		List<T> models = getGroups().computeIfAbsent(group, k -> new ArrayList<>());
 		models.add(model);
 	}
-
-	public Map<String, List<T>> getGroups() {
-		return groups;
-	}
-
 }

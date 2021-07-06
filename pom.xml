@@ -8,9 +8,9 @@
 		<version>2.3.8.RELEASE</version>
 	</parent>
 
-	<groupId>org.sathyabodh</groupId>
+	<groupId>org.quartz-actuator</groupId>
 	<artifactId>quartz-actuator</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.1</version>
 	<packaging>jar</packaging>
 
 	<name>actuator</name>
@@ -27,28 +27,21 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.restdocs</groupId>
-			<artifactId>spring-restdocs-mockmvc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.20</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -56,7 +49,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Illia-Shchur Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/Illia-Shchur/quartz-acutator</url>
+			<url>https://maven.pkg.github.com/Illia-Shchur/quartz-actuator</url>
 		</repository>
 	</distributionManagement>
 

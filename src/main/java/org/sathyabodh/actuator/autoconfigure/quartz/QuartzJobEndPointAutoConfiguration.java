@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass({ Scheduler.class, SchedulerFactory.class })
 @AutoConfigureAfter(QuartzAutoConfiguration.class)
-public class QurtzJobEndPointAutoConfiguration {
+public class QuartzJobEndPointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean

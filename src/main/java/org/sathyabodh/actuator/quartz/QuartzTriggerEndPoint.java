@@ -1,13 +1,16 @@
 package org.sathyabodh.actuator.quartz;
 
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerKey;
+import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.quartz.impl.triggers.CronTriggerImpl;
+import org.quartz.listeners.JobChainingJobListener;
+import org.sathyabodh.actuator.quartz.exception.UnsupportCronChangeExpression;
 import org.sathyabodh.actuator.quartz.exception.UnsupportStateChangeException;
 import org.sathyabodh.actuator.quartz.model.GroupModel;
 import org.sathyabodh.actuator.quartz.model.TriggerDetailModel;
@@ -17,11 +20,13 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Endpoint(id = "quartz-triggers")
 public class QuartzTriggerEndPoint {
-	private Scheduler scheduler;
-	private TriggerModelBuilder triggerModelBuilder = new TriggerModelBuilder();
+
+	private final Scheduler scheduler;
+	private final TriggerModelBuilder triggerModelBuilder = new TriggerModelBuilder();
 
 	public QuartzTriggerEndPoint(Scheduler scheduler){
 		this.scheduler = scheduler;
@@ -98,4 +103,41 @@ public class QuartzTriggerEndPoint {
 		}
 		return true;
 	}
+	@WriteOperation
+	public boolean modifyTriggerCron(@Selector String group, @Selector String name, @RequestBody String cron) throws SchedulerException {
+		TriggerKey triggerKey = new TriggerKey(name,group);
+		CronTriggerImpl trigger = (CronTriggerImpl) scheduler.getTrigger(triggerKey);
+		if(trigger==null){
+			return false;
+		}else{
+			try {
+				trigger.setCronExpression(cron);
+			} catch (ParseException e) {
+				 throw new UnsupportCronChangeExpression(String.format("unsupported cron change. cron:[%s]", cron));
+			}
+			scheduler.rescheduleJob(triggerKey,trigger);
+			return true;
+		}
+	}
+
+	@WriteOperation
+	public boolean modifyTriggersCron(@Selector String group, @RequestBody String cron) throws SchedulerException {
+		Set<TriggerKey>  triggerKeys = scheduler.getTriggerKeys(GroupMatcher.groupEquals(group));
+
+		if(triggerKeys == null || triggerKeys.isEmpty()){
+			return false;
+		}
+
+		for (TriggerKey triggerKey : triggerKeys) {
+			CronTriggerImpl trigger = (CronTriggerImpl)scheduler.getTrigger(triggerKey);
+			try {
+				trigger.setCronExpression(cron);
+			} catch (ParseException e) {
+				throw new UnsupportCronChangeExpression(String.format("unsupported cron change. cron:[%s]", cron));
+			}
+			scheduler.rescheduleJob(triggerKey,trigger);
+		}
+		return true;
+	}
+
 }

@@ -6,20 +6,21 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @EndpointWebExtension(endpoint=QuartzJobEndPoint.class)
 public class QuartzJobEndPointWebExtension {
 
-	private QuartzJobEndPoint qurtzJobEndPoint ;
+	private final QuartzJobEndPoint quartzJobEndPoint;
 
-	public QuartzJobEndPointWebExtension(QuartzJobEndPoint qurtzJobEndPoint){
-		this.qurtzJobEndPoint = qurtzJobEndPoint;
+	public QuartzJobEndPointWebExtension(QuartzJobEndPoint quartzJobEndPoint){
+		this.quartzJobEndPoint = quartzJobEndPoint;
 	}
 
 	@WriteOperation
-	public WebEndpointResponse<?> modifyJobStatus(@Selector String group, @Selector String name, @Selector String state) throws SchedulerException {
+	public WebEndpointResponse<?> modifyJobStatus(@Selector String group, @Selector String name, @RequestBody String state) throws SchedulerException {
 		try{
-			boolean isSucess = qurtzJobEndPoint.modifyJobStatus(group, name, state);
+			boolean isSucess = quartzJobEndPoint.modifyJobStatus(group, name, state);
 			int status = isSucess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
 			return new WebEndpointResponse<>(status);
 		}catch(UnsupportStateChangeException e){
@@ -27,9 +28,9 @@ public class QuartzJobEndPointWebExtension {
 		}
 	}
 	@WriteOperation
-	public WebEndpointResponse<?> modifyJobsStatus(@Selector String group,@Selector String state) throws SchedulerException {
+	public WebEndpointResponse<?> modifyJobsStatus(@Selector String group,@RequestBody String state) throws SchedulerException {
 		try{
-			boolean isSucess = qurtzJobEndPoint.modifyJobsStatus(group, state);
+			boolean isSucess = quartzJobEndPoint.modifyJobsStatus(group, state);
 			int status = isSucess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
 			return new WebEndpointResponse<>(status);
 		}catch(UnsupportStateChangeException e){

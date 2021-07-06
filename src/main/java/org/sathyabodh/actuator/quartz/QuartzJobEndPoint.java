@@ -18,13 +18,14 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Endpoint(id = "quartz-jobs")
 public class QuartzJobEndPoint {
 
-	private Scheduler scheduler;
+	private final Scheduler scheduler;
 
-	private TriggerModelBuilder triggerModelBuilder = new TriggerModelBuilder();
+	private final TriggerModelBuilder triggerModelBuilder = new TriggerModelBuilder();
 
 	public QuartzJobEndPoint(Scheduler scheduler){
 		this.scheduler = scheduler;
@@ -96,7 +97,7 @@ public class QuartzJobEndPoint {
 	}
 
 	@WriteOperation
-	public boolean modifyJobStatus(@Selector String group, @Selector String name, @Selector String state)
+	public boolean modifyJobStatus(@Selector String group, @Selector String name, @RequestBody String state)
 			throws SchedulerException {
 		JobKey jobKey = new JobKey(name, group);
 		JobDetail detail = scheduler.getJobDetail(jobKey);
@@ -113,7 +114,7 @@ public class QuartzJobEndPoint {
 	}
 
 	@WriteOperation
-	public boolean modifyJobsStatus(@Selector String group, @Selector String state) throws SchedulerException{
+	public boolean modifyJobsStatus(@Selector String group, @RequestBody String state) throws SchedulerException{
 		GroupMatcher<JobKey> jobGroupMatcher = GroupMatcher.jobGroupEquals(group);
 		Set<JobKey> jobKeys = scheduler.getJobKeys(jobGroupMatcher);
 		if (jobKeys == null || jobKeys.isEmpty()) {

@@ -41,5 +41,4 @@ public class TriggerModelBuilder {
 		}
 		return model;
 	}
-
 }
