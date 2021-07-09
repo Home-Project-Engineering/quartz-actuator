@@ -3,6 +3,7 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
+        <option value="$PROJECT_DIR$/quartz-actuator-application/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>

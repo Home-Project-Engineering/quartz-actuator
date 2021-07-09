@@ -99,6 +99,8 @@ under the License.
     <modules> 
       <!-- module filepath="$$PROJECT_DIR$$/${pom.artifactId}.iml"/ -->  
       <module filepath="$PROJECT_DIR$/quartz-actuator.iml"/>
+      <module filepath="$PROJECT_DIR$/quartz-actuator-client/quartz-actuator-client.iml"/>
+      <module filepath="$PROJECT_DIR$/quartz-actuator-application/quartz-actuator-application.iml"/>
     </modules> 
   </component>  
   <UsedPathMacros> 

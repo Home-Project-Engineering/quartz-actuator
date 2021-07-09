@@ -1,0 +1,482 @@
+openapi: 3.0.3
+
+info:
+  title: HomePage - OpenAPI 3.0
+  description: "This is a Home Page sample of Home Project based on the OpenAPI 3.0 specification."
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/mit-license.php
+  contact:
+    url: https://github.com/ita-social-projects/Home
+  version: 1.0.0
+
+servers:
+  - url: /actuator
+
+tags:
+  - name: quartz-triggers
+    description: triggers managment
+  - name: quartz-jobs
+    description: jobs managment
+
+paths:
+  /quartz-triggers:
+    get:
+      tags:
+        - quartz-triggers
+      summary: get all triggers
+      description: The endpoint returns triggers
+      operationId: getAllTriggers
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+
+  /quartz-triggers/{group}:
+    get:
+      tags:
+        - quartz-triggers
+      summary: get all triggers
+      description: The endpoint returns triggers
+      operationId: getTriggersByGroup
+      parameters:
+        - in: path
+          required: true
+          name: group
+
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      parameters:
+        - in: path
+          required: true
+          name: group
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/cron"
+      tags:
+        - quartz-triggers
+      summary: set triggers cron by group
+      description: setting triggers cron to the specified group
+      operationId: setTriggersCron
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+
+  /quartz-triggers/{group}/{name}:
+    post:
+      parameters:
+        - in: path
+          required: true
+          name: group
+          schema:
+            type: string
+        - in: path
+          required: true
+          name: name
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/cron"
+      tags:
+        - quartz-triggers
+      summary: set triggers cron by group and name
+      description: setting triggers cron to the specified group
+      operationId: setTriggerCron
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      parameters:
+        - in: path
+          required: true
+          name: group
+          schema:
+            type: string
+        - in: path
+          required: true
+          name: name
+          schema:
+            type: string
+      tags:
+        - quartz-triggers
+      summary: get all triggers
+      description: The endpoint returns triggers
+      operationId: getTriggerByGroupAndName
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+
+  /quartz-jobs:
+    get:
+      tags:
+        - quartz-jobs
+      summary: get all jobs
+      description: The endpoint returns jobs
+      operationId: getAllJobs
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+
+  /quartz-jobs/{group}:
+    get:
+      tags:
+        - quartz-jobs
+      summary: get all jobs
+      description: The endpoint returns jobs
+      operationId: getJobsByGroup
+      parameters:
+        - in: path
+          required: true
+          name: group
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      parameters:
+        - in: path
+          required: true
+          name: group
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/state"
+      tags:
+        - quartz-jobs
+      summary: set jobs state by group
+      description: setting jobs state to the specified group
+      operationId: setJobsState
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+
+  /quartz-jobs/{group}/{name}:
+    post:
+      parameters:
+        - in: path
+          required: true
+          name: group
+          schema:
+            type: string
+        - in: path
+          required: true
+          name: name
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/state"
+      tags:
+        - quartz-jobs
+      summary: set job state
+      description: setting job state
+      operationId: setJobState
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      parameters:
+        - in: path
+          required: true
+          name: group
+          schema:
+            type: string
+        - in: path
+          required: true
+          name: name
+          schema:
+            type: string
+      tags:
+        - quartz-jobs
+      summary: get all triggers
+      description: The endpoint returns triggers
+      operationId: getJobByGroupAndName
+      responses:
+        200:
+          $ref: '#/components/schemas/GroupModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        default:
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        responseCode:
+          type: integer
+          example: 404
+        errorMessage:
+          type: string
+          example: "example"
+
+    GroupModel:
+      type: object
+      properties:
+        groups:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              example: "object"
+          example: "example"
+
+    TriggerDetailModel:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "triggerName"
+        nextFireTime:
+          type: string
+          example: "2021-07-08T10:41:30.000+00:00"
+        previousFireTime:
+          type: string
+          example: "2021-07-08T10:41:30.000+00:00"
+        startTime:
+          type: string
+          example: "2021-07-08T10:41:30.000+00:00"
+        endTime:
+          type: string
+          example: "2021-07-08T10:41:30.000+00:00"
+        group:
+          type: string
+          example: "groupName"
+        state:
+          type: string
+          example: "NORMAL"
+        jobkey:
+          type: string
+          example: "AutoConfigured.sendEmailJobJobDetail"
+
+    TriggerModel:
+      type: object
+      properties:
+        group:
+          type: string
+          example: "AutoConfigured"
+        name:
+          type: string
+          example: "triggerName"
+        state:
+          type: string
+          example: "NORMAL"
+        nextFireTime:
+          type: string
+          example: "2021-07-08T10:41:30.000+00:00"
+        previousFireTime:
+          type: string
+          example: "2021-07-08T10:41:30.000+00:00"
+        startTime:
+          type: string
+          example: "2021-07-08T10:41:30.000+00:00"
+        endTime:
+          type: string
+          example: "2021-07-08T10:41:30.000+00:00"
+
+    JobModel:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "jobName"
+        isConcurrentDisallowed:
+          type: boolean
+          example: true
+        isDurable:
+          type: boolean
+          example: true
+        jobClass:
+          type: string
+          example: "quartz.jobs.SendEmailJob"
+
+    JobDetailModel:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/JobModel"
+      properties:
+        group:
+          type: string
+          example: "AutoConfigured"
+        triggers:
+          type: array
+          example: "[]"
+          items:
+            $ref: "#/components/schemas/TriggerDetailModel"
+
+
+  responses:
+    NoContentResponse:
+      description: The request was succesfully processed.
+    BadRequest:
+      description: Validation Exception.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Forbidden:
+      description: You do not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    NotFound:
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Conflict:
+      description: Conflict with current state of the resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    InternalServerError:
+      description: Something went wrong.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+
+  requestBodies:
+    cron:
+      description: A payload for modifying cron
+      content:
+        application/json:
+          schema:
+            type: string
+    state:
+      description: A payload for modifying state
+      content:
+        application/json:
+          schema:
+            type: string

@@ -2,23 +2,30 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
-      <profile name="Maven default annotation processors profile" enabled="true">
+      <profile name="Annotation profile for quartz-actuator" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar" />
+        </processorPath>
+        <module name="quartz-actuator-client" />
         <module name="quartz-actuator" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="quartz-actuator" target="11" />
-      <module name="quartz-actuator-generator" target="11" />
+      <module name="quartz-actuator" target="1.8" />
+      <module name="quartz-actuator (1)" target="1.8" />
+      <module name="quartz-actuator-client" target="1.8" />
+      <module name="quartz-actuator-open-api" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="quartz-actuator" options="-parameters" />
-      <module name="quartz-actuator-generator" options="-parameters" />
+      <module name="quartz-actuator (1)" options="" />
+      <module name="quartz-actuator-client" options="-parameters" />
+      <module name="quartz-actuator-open-api" options="-parameters" />
     </option>
   </component>
 </project>

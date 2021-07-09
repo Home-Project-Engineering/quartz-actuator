@@ -1,0 +1,743 @@
+openapi: 3.0.3
+info:
+  contact:
+    url: https://github.com/ita-social-projects/Home
+  description: This is a Home Page sample of Home Project based on the OpenAPI 3.0
+    specification.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/mit-license.php
+  title: HomePage - OpenAPI 3.0
+  version: 1.0.0
+servers:
+- url: /actuator
+tags:
+- description: triggers managment
+  name: quartz-triggers
+- description: jobs managment
+  name: quartz-jobs
+paths:
+  /quartz-triggers:
+    get:
+      description: The endpoint returns triggers
+      operationId: getAllTriggers
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: get all triggers
+      tags:
+      - quartz-triggers
+      x-accepts: application/json
+  /quartz-triggers/{group}:
+    get:
+      description: The endpoint returns triggers
+      operationId: getTriggersByGroup
+      parameters:
+      - explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: get all triggers
+      tags:
+      - quartz-triggers
+      x-accepts: application/json
+    post:
+      description: setting triggers cron to the specified group
+      operationId: setTriggersCron
+      parameters:
+      - explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/cron'
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: set triggers cron by group
+      tags:
+      - quartz-triggers
+      x-contentType: application/json
+      x-accepts: application/json
+  /quartz-triggers/{group}/{name}:
+    get:
+      description: The endpoint returns triggers
+      operationId: getTriggerByGroupAndName
+      parameters:
+      - explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: get all triggers
+      tags:
+      - quartz-triggers
+      x-accepts: application/json
+    post:
+      description: setting triggers cron to the specified group
+      operationId: setTriggerCron
+      parameters:
+      - explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/cron'
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: set triggers cron by group and name
+      tags:
+      - quartz-triggers
+      x-contentType: application/json
+      x-accepts: application/json
+  /quartz-jobs:
+    get:
+      description: The endpoint returns jobs
+      operationId: getAllJobs
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: get all jobs
+      tags:
+      - quartz-jobs
+      x-accepts: application/json
+  /quartz-jobs/{group}:
+    get:
+      description: The endpoint returns jobs
+      operationId: getJobsByGroup
+      parameters:
+      - explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: get all jobs
+      tags:
+      - quartz-jobs
+      x-accepts: application/json
+    post:
+      description: setting jobs state to the specified group
+      operationId: setJobsState
+      parameters:
+      - explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/state'
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: set jobs state by group
+      tags:
+      - quartz-jobs
+      x-contentType: application/json
+      x-accepts: application/json
+  /quartz-jobs/{group}/{name}:
+    get:
+      description: The endpoint returns triggers
+      operationId: getJobByGroupAndName
+      parameters:
+      - explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: get all triggers
+      tags:
+      - quartz-jobs
+      x-accepts: application/json
+    post:
+      description: setting job state
+      operationId: setJobState
+      parameters:
+      - explode: false
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/state'
+      responses:
+        "200":
+          $ref: '#/components/schemas/GroupModel'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Validation Exception.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: You do not have permission to perform this action.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: The specified resource was not found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Conflict with current state of the resource.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Something went wrong.
+      summary: set job state
+      tags:
+      - quartz-jobs
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  requestBodies:
+    cron:
+      content:
+        application/json:
+          schema:
+            type: string
+      description: A payload for modifying cron
+    state:
+      content:
+        application/json:
+          schema:
+            type: string
+      description: A payload for modifying state
+  responses:
+    NoContentResponse:
+      description: The request was succesfully processed.
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Validation Exception.
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Unauthorized.
+    Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: You do not have permission to perform this action.
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: The specified resource was not found.
+    Conflict:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Conflict with current state of the resource.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Something went wrong.
+  schemas:
+    ApiError:
+      properties:
+        responseCode:
+          example: 404
+          type: integer
+        errorMessage:
+          example: example
+          type: string
+      type: object
+    GroupModel:
+      properties:
+        groups:
+          additionalProperties:
+            items:
+              example: object
+              type: object
+            type: array
+          example: example
+          type: object
+      type: object
+    TriggerDetailModel:
+      properties:
+        name:
+          example: triggerName
+          type: string
+        nextFireTime:
+          example: 2021-07-08T10:41:30.000+00:00
+          type: string
+        previousFireTime:
+          example: 2021-07-08T10:41:30.000+00:00
+          type: string
+        startTime:
+          example: 2021-07-08T10:41:30.000+00:00
+          type: string
+        endTime:
+          example: 2021-07-08T10:41:30.000+00:00
+          type: string
+        group:
+          example: groupName
+          type: string
+        state:
+          example: NORMAL
+          type: string
+        jobkey:
+          example: AutoConfigured.sendEmailJobJobDetail
+          type: string
+      type: object
+    TriggerModel:
+      properties:
+        group:
+          example: AutoConfigured
+          type: string
+        name:
+          example: triggerName
+          type: string
+        state:
+          example: NORMAL
+          type: string
+        nextFireTime:
+          example: 2021-07-08T10:41:30.000+00:00
+          type: string
+        previousFireTime:
+          example: 2021-07-08T10:41:30.000+00:00
+          type: string
+        startTime:
+          example: 2021-07-08T10:41:30.000+00:00
+          type: string
+        endTime:
+          example: 2021-07-08T10:41:30.000+00:00
+          type: string
+      type: object
+    JobModel:
+      properties:
+        name:
+          example: jobName
+          type: string
+        isConcurrentDisallowed:
+          example: true
+          type: boolean
+        isDurable:
+          example: true
+          type: boolean
+        jobClass:
+          example: quartz.jobs.SendEmailJob
+          type: string
+      type: object
+    JobDetailModel:
+      allOf:
+      - $ref: '#/components/schemas/JobModel'
+      properties:
+        group:
+          example: AutoConfigured
+          type: string
+        triggers:
+          example: '[]'
+          items:
+            $ref: '#/components/schemas/TriggerDetailModel'
+          type: array
+      type: object
+
