@@ -1,13 +1,13 @@
-package org.sathyabodh.actuator.quartz;
+package org.sathyabodh.actuator.quartz.api.impl;
 
 import org.quartz.SchedulerException;
 import org.quartz.TriggerKey;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.sathyabodh.actuator.model.GroupModel;
 import org.sathyabodh.actuator.model.TriggerDetailModel;
+import org.sathyabodh.actuator.quartz.api.QuartzTriggerEndPoint;
 import org.sathyabodh.actuator.quartz.exception.UnsupportCronChangeExpression;
-import org.sathyabodh.actuator.quartz.exception.UnsupportStateChangeException;
-import org.sathyabodh.actuator.quartz.service.QuartzTriggerService;
+import org.sathyabodh.actuator.quartz.service.impl.QuartzTriggerServiceImpl;
 import org.sathyabodh.actuator.quartz.service.TriggerModelBuilder;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -21,16 +21,17 @@ import java.util.List;
 import java.util.Set;
 
 @WebEndpoint(id = "quartz-triggers")
-public class QuartzTriggerEndPoint  {
+public class QuartzTriggerEndPointImpl implements QuartzTriggerEndPoint {
 
-	private final QuartzTriggerService quartzTriggerService;
+	private final QuartzTriggerServiceImpl quartzTriggerService;
 	private final TriggerModelBuilder triggerModelBuilder;
 
-	public QuartzTriggerEndPoint(QuartzTriggerService quartzTriggerService,TriggerModelBuilder builder){
+	public QuartzTriggerEndPointImpl(QuartzTriggerServiceImpl quartzTriggerService, TriggerModelBuilder builder){
 		this.quartzTriggerService = quartzTriggerService;
 		this.triggerModelBuilder = builder;
 	}
 
+	@Override
 	@ReadOperation
 	public WebEndpointResponse<?> getTriggerByGroupAndName(@Selector String group, @Selector String name) {
 		try {
@@ -48,6 +49,7 @@ public class QuartzTriggerEndPoint  {
 		}
 	}
 
+	@Override
 	@ReadOperation
 	public WebEndpointResponse<?> getTriggersByGroup(@Selector String group) {
 		try {
@@ -63,6 +65,7 @@ public class QuartzTriggerEndPoint  {
 		}
 	}
 
+	@Override
 	@ReadOperation
 	public WebEndpointResponse<?> getAllTriggers() {
 		try {
@@ -86,6 +89,7 @@ public class QuartzTriggerEndPoint  {
 		}
 	}
 
+	@Override
 	@WriteOperation
 	public WebEndpointResponse<?> setTriggerCron(@Selector String group, @Selector String name, @RequestBody String cron) throws SchedulerException {
 		try{
@@ -97,8 +101,9 @@ public class QuartzTriggerEndPoint  {
 		}
 	}
 
+	@Override
 	@WriteOperation
-	public WebEndpointResponse<?> setTriggersCron(@Selector String group,@RequestBody String cron) throws SchedulerException {
+	public WebEndpointResponse<?> setTriggersCron(@Selector String group, @RequestBody String cron) throws SchedulerException {
 		try{
 			boolean isSuccess  = quartzTriggerService.modifyTriggersCron(group, cron);
 			int status = isSuccess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;

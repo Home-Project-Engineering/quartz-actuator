@@ -18,7 +18,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<revision>1.1.5</revision>
+		<revision>1.2.1</revision>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.boot.version>2.3.8.RELEASE</spring.boot.version>
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
@@ -85,7 +85,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Illia-Shchur Apache Maven Packages</name>
-			<url>https://Illia-Shchur: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@maven.pkg.github.com/Illia-Shchur/quartz-actuator</url>
+			<url>https://Illia-Shchur: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@maven.pkg.github.com/Illia-Shchur/quartz-actuator</url>
 		</repository>
 	</distributionManagement>
 

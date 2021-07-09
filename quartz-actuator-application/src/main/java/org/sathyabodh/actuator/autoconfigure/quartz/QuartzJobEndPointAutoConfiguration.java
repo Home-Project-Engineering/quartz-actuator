@@ -2,8 +2,10 @@ package org.sathyabodh.actuator.autoconfigure.quartz;
 
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
-import org.sathyabodh.actuator.quartz.QuartzJobEndPoint;
+import org.sathyabodh.actuator.quartz.api.QuartzJobEndPoint;
+import org.sathyabodh.actuator.quartz.api.impl.QuartzJobEndPointImpl;
 import org.sathyabodh.actuator.quartz.service.QuartzJobService;
+import org.sathyabodh.actuator.quartz.service.impl.QuartzJobServiceImpl;
 import org.sathyabodh.actuator.quartz.service.TriggerModelBuilder;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -24,16 +26,16 @@ public class QuartzJobEndPointAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public QuartzJobService quartzJobService(Scheduler scheduler, ApplicationContext context) {
-		Map<String, QuartzJobEndPoint> beansOfType = context.getBeansOfType(QuartzJobEndPoint.class);
+		Map<String, QuartzJobEndPointImpl> beansOfType = context.getBeansOfType(QuartzJobEndPointImpl.class);
 		Map<String, TriggerModelBuilder> beansOfType2 = context.getBeansOfType(TriggerModelBuilder.class);
-		return new QuartzJobService(scheduler);
+		return new QuartzJobServiceImpl(scheduler);
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnAvailableEndpoint
-	public QuartzJobEndPoint quartzJobEndPoint(QuartzJobService service) {
-		return new QuartzJobEndPoint(service);
+	public QuartzJobEndPoint quartzJobEndPoint(QuartzJobServiceImpl service) {
+		return new QuartzJobEndPointImpl(service);
 	}
 
 }
