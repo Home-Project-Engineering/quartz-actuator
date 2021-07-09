@@ -1,7 +1,8 @@
-package org.sathyabodh.actuator.quartz;
+package org.sathyabodh.actuator.autoconfigure.quartz;
 
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
+import org.sathyabodh.actuator.quartz.QuartzTriggerEndPoint;
 import org.sathyabodh.actuator.quartz.service.QuartzTriggerService;
 import org.sathyabodh.actuator.quartz.service.TriggerModelBuilder;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
@@ -32,7 +33,7 @@ public class QuartzTriggerEndPointAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnAvailableEndpoint
-	public QuartzTriggerEndPoint quartzTriggerEndPoint(QuartzTriggerService service,TriggerModelBuilder builder){
+	public QuartzTriggerEndPoint quartzTriggerEndPoint(QuartzTriggerService service, TriggerModelBuilder builder){
 		return new QuartzTriggerEndPoint(service,builder);
 	}
 }
