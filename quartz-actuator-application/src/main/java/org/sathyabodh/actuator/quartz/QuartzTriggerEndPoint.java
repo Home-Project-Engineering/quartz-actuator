@@ -32,7 +32,7 @@ public class QuartzTriggerEndPoint  {
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<?> listTriggersByGroupAndName(@Selector String group, @Selector String name) {
+	public WebEndpointResponse<?> getTriggerByGroupAndName(@Selector String group, @Selector String name) {
 		try {
 			TriggerDetailModel model = triggerModelBuilder.buildTriggerDetailModel(new TriggerKey(name, group));
 			if (model == null) {
@@ -49,7 +49,7 @@ public class QuartzTriggerEndPoint  {
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<?> listTriggersByGroup(@Selector String group) {
+	public WebEndpointResponse<?> getTriggersByGroup(@Selector String group) {
 		try {
 			Set<TriggerKey> triggerKeys = quartzTriggerService.getTriggerKeys(GroupMatcher.triggerGroupEquals(group));
 			if (triggerKeys == null || triggerKeys.isEmpty()) {
@@ -87,23 +87,23 @@ public class QuartzTriggerEndPoint  {
 	}
 
 	@WriteOperation
-	public WebEndpointResponse<?> modifyTriggerCron(@Selector String group, @Selector String name, @RequestBody String cron) throws SchedulerException {
+	public WebEndpointResponse<?> setTriggerCron(@Selector String group, @Selector String name, @RequestBody String cron) throws SchedulerException {
 		try{
 			boolean isSuccess  = quartzTriggerService.modifyTriggerCron(group, name, cron);
 			int status = isSuccess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
 			return new WebEndpointResponse<>(status);
-		}catch(UnsupportStateChangeException | UnsupportCronChangeExpression e){
+		}catch(UnsupportCronChangeExpression e){
 			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
 		}
 	}
 
 	@WriteOperation
-	public WebEndpointResponse<?> modifyTriggersCron(@Selector String group,@RequestBody String cron) throws SchedulerException {
+	public WebEndpointResponse<?> setTriggersCron(@Selector String group,@RequestBody String cron) throws SchedulerException {
 		try{
 			boolean isSuccess  = quartzTriggerService.modifyTriggersCron(group, cron);
 			int status = isSuccess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
 			return new WebEndpointResponse<>(status);
-		}catch(UnsupportStateChangeException | UnsupportCronChangeExpression e){
+		}catch(UnsupportCronChangeExpression e){
 			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
 		}
 	}

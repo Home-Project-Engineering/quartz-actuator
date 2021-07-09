@@ -18,14 +18,6 @@
 	<description>actuator</description>
 	<properties>
 		<yaml.name>openapi.yaml</yaml.name>
-		<jersey-version>2.32</jersey-version>
-		<jackson-version>2.10.3</jackson-version>
-		<jackson-databind-version>2.10.3</jackson-databind-version>
-		<jackson-databind-nullable-version>0.2.1</jackson-databind-nullable-version>
-		<threetenbp-version>2.9.10</threetenbp-version>
-		<junit-version>4.13</junit-version>
-		<maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
-
 	</properties>
 	<dependencies>
 		<dependency>

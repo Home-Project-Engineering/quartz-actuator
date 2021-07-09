@@ -1,13 +1,13 @@
 openapi: 3.0.3
 
 info:
-  title: HomePage - OpenAPI 3.0
-  description: "This is a Home Page sample of Home Project based on the OpenAPI 3.0 specification."
+  title: quartz-actuator - OpenAPI 3.0
+  description: "This is a quartz-actuator sample based on the OpenAPI 3.0 specification."
   license:
     name: MIT License
     url: https://opensource.org/licenses/mit-license.php
   contact:
-    url: https://github.com/ita-social-projects/Home
+    url: https://github.com/Illia-Shchur/quartz-actuator
   version: 1.0.0
 
 servers:
@@ -54,7 +54,6 @@ paths:
         - in: path
           required: true
           name: group
-
           schema:
             type: string
       responses:
@@ -426,7 +425,6 @@ components:
           items:
             $ref: "#/components/schemas/TriggerDetailModel"
 
-
   responses:
     NoContentResponse:
       description: The request was succesfully processed.
@@ -436,30 +434,35 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError'
+
     Unauthorized:
       description: Unauthorized.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError'
+
     Forbidden:
       description: You do not have permission to perform this action.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError'
+
     NotFound:
       description: The specified resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError'
+
     Conflict:
       description: Conflict with current state of the resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError'
+
     InternalServerError:
       description: Something went wrong.
       content:
@@ -474,6 +477,7 @@ components:
         application/json:
           schema:
             type: string
+
     state:
       description: A payload for modifying state
       content:

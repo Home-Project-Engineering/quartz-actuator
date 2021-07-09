@@ -30,7 +30,7 @@ public class QuartzJobEndPoint {
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<?> listJobsByGroupAndName(@Selector String group, @Selector String name)  {
+	public WebEndpointResponse<?> getJobByGroupAndName(@Selector String group, @Selector String name)  {
 		JobModel model = quartzJobService.createJobModel(new JobKey(name, group));
 		if (model == null) {
 			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
@@ -42,7 +42,7 @@ public class QuartzJobEndPoint {
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<?> listJobsByGroup(@Selector String group) {
+	public WebEndpointResponse<?> getJobsByGroup(@Selector String group) {
 		try {
 			Set<JobKey> jobKeys = quartzJobService.getJobKeys(GroupMatcher.jobGroupEquals(group));
 			if (jobKeys == null || jobKeys.isEmpty()) {
@@ -61,7 +61,7 @@ public class QuartzJobEndPoint {
 
 
 	@ReadOperation
-	public WebEndpointResponse<?> listJobs() {
+	public WebEndpointResponse<?> getAllJobs() {
 		try {
 			Set<JobKey> jobKeys = quartzJobService.getJobKeys(GroupMatcher.anyJobGroup());
 			if (jobKeys == null || jobKeys.isEmpty()) {
@@ -80,7 +80,7 @@ public class QuartzJobEndPoint {
 
 
 	@WriteOperation
-	public WebEndpointResponse<?> modifyJobStatus(@Selector String group, @Selector String name, @RequestBody String state) throws SchedulerException {
+	public WebEndpointResponse<?> setJobState(@Selector String group, @Selector String name, @RequestBody String state) throws SchedulerException {
 		try{
 			boolean isSucess = quartzJobService.modifyJobStatus(group, name, state);
 			int status = isSucess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
@@ -90,7 +90,7 @@ public class QuartzJobEndPoint {
 		}
 	}
 	@WriteOperation
-	public WebEndpointResponse<?> modifyJobsStatus(@Selector String group,@RequestBody String state) throws SchedulerException {
+	public WebEndpointResponse<?> setJobsState(@Selector String group,@RequestBody String state) throws SchedulerException {
 		try{
 			boolean isSucess = quartzJobService.modifyJobsStatus(group, state);
 			int status = isSucess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
