@@ -18,7 +18,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<revision>1.1.3</revision>
+		<revision>1.1.5</revision>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.boot.version>2.3.8.RELEASE</spring.boot.version>
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
@@ -50,6 +50,34 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>${flatten.maven.plugin.version}</version>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					<flattenMode>resolveCiFriendliesOnly</flattenMode>
+				</configuration>
+				<executions>
+					<!-- enable flattening -->
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<!-- ensure proper cleanup -->
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -57,7 +85,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Illia-Shchur Apache Maven Packages</name>
-			<url>https://Illia-Shchur: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@maven.pkg.github.com/Illia-Shchur/quartz-actuator</url>
+			<url>https://Illia-Shchur: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@maven.pkg.github.com/Illia-Shchur/quartz-actuator</url>
 		</repository>
 	</distributionManagement>
 
