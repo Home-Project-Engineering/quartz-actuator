@@ -1,133 +1,109 @@
 package org.sathyabodh.actuator.quartz;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
-import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.sathyabodh.actuator.model.GroupModel;
+import org.sathyabodh.actuator.model.JobDetailModel;
+import org.sathyabodh.actuator.model.JobModel;
 import org.sathyabodh.actuator.quartz.exception.UnsupportStateChangeException;
-import org.sathyabodh.actuator.quartz.model.GroupModel;
-import org.sathyabodh.actuator.quartz.model.JobDetailModel;
-import org.sathyabodh.actuator.quartz.model.JobModel;
+import org.sathyabodh.actuator.quartz.service.QuartzJobService;
 import org.sathyabodh.actuator.quartz.service.TriggerModelBuilder;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Endpoint(id = "quartz-jobs")
 public class QuartzJobEndPoint {
 
-	private final Scheduler scheduler;
+	private final QuartzJobService quartzJobService;
 
-	private final TriggerModelBuilder triggerModelBuilder = new TriggerModelBuilder();
 
-	public QuartzJobEndPoint(Scheduler scheduler){
-		this.scheduler = scheduler;
+	public QuartzJobEndPoint(QuartzJobService quartzJobService) {
+		this.quartzJobService = quartzJobService;
 	}
 
 	@ReadOperation
-	public GroupModel<JobModel> listJobs(@Nullable String group, @Nullable String name) throws SchedulerException {
-		try {
-			if (name != null && group != null) {
-				JobModel model = createJobModel(new JobKey(name, group));
-				if (model == null) {
-					return null;
-				}
-				GroupModel<JobModel> jobGroupModel = new GroupModel<>();
-				jobGroupModel.add(group, model);
-				return jobGroupModel;
-			}
-			GroupMatcher<JobKey> jobGroupMatcher = group == null ?
-					GroupMatcher.anyJobGroup():GroupMatcher.jobGroupEquals(group);
+	public WebEndpointResponse<?> listJobsByGroupAndName(@Selector String group, @Selector String name)  {
+		JobModel model = quartzJobService.createJobModel(new JobKey(name, group));
+		if (model == null) {
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
+		}
+		GroupModel jobGroupModel = new GroupModel();
+		List<Object> jobsList = jobGroupModel.getGroups().computeIfAbsent(group, k -> new ArrayList<>());
+		jobsList.add(model);
+		return new WebEndpointResponse<>(jobGroupModel);
+	}
 
-			Set<JobKey> jobKeys = scheduler.getJobKeys(jobGroupMatcher);
-			if(name != null){
-				jobKeys = jobKeys.stream().filter(key->name.equals(key.getName())).collect(Collectors.toSet());
+	@ReadOperation
+	public WebEndpointResponse<?> listJobsByGroup(@Selector String group) {
+		try {
+			Set<JobKey> jobKeys = quartzJobService.getJobKeys(GroupMatcher.jobGroupEquals(group));
+			if (jobKeys == null || jobKeys.isEmpty()) {
+				return new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
 			}
+			GroupModel jobGroupModel = new GroupModel();
+			jobKeys.forEach(key->{JobModel model = quartzJobService.createJobModel(key);
+				List<Object> jobsList = jobGroupModel.getGroups().computeIfAbsent(key.getGroup(), k -> new ArrayList<>());
+				jobsList.add(model);
+			});
+			return new WebEndpointResponse<>(jobGroupModel);
+		} catch (SchedulerException e) {
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
+		}
+	}
+
+
+	@ReadOperation
+	public WebEndpointResponse<?> listJobs() {
+		try {
+			Set<JobKey> jobKeys = quartzJobService.getJobKeys(GroupMatcher.anyJobGroup());
 			if (jobKeys == null || jobKeys.isEmpty()) {
 				return null;
 			}
-			GroupModel<JobModel> jobGroupModel = new GroupModel<>();
-			jobKeys.forEach(key->{JobModel model = createJobModel(key);
-					jobGroupModel.add(key.getGroup(), model);
-					});
-			return jobGroupModel;
+			GroupModel jobGroupModel = new GroupModel();
+			jobKeys.forEach(key->{JobModel model = quartzJobService.createJobModel(key);
+				List<Object> jobsList = jobGroupModel.getGroups().computeIfAbsent(key.getGroup(), k -> new ArrayList<>());
+				jobsList.add(model);
+			});
+			return new WebEndpointResponse<>(jobGroupModel);
 		} catch (SchedulerException e) {
-			throw e;
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
 		}
 	}
 
-	@ReadOperation
-	public JobDetailModel getJobDetail(@Selector String group, @Selector String name) throws SchedulerException{
-		JobDetail jobDetail = scheduler.getJobDetail(new JobKey(name, group));
-		JobDetailModel model = new JobDetailModel();
-		copyJobDetailModel(jobDetail, model);
-		model.setGroup(jobDetail.getKey().getGroup());
-		model.setTriggers(triggerModelBuilder.buildTriggerDetailModel(scheduler, jobDetail.getKey()));
-		return model;
-	}
-
-	private JobModel createJobModel(JobKey key){
-		try {
-			JobDetail jobDetail = scheduler.getJobDetail(key);
-			if (jobDetail == null) {
-				return null;
-			}
-			JobModel model = new JobModel();
-			copyJobDetailModel(jobDetail, model);
-			return model;
-
-		} catch (SchedulerException e) {
-			throw new RuntimeException(e);
-		}
-
-	}
-
-	private void copyJobDetailModel(JobDetail jobDetail,JobModel model) {
-			model.setName(jobDetail.getKey().getName());
-			model.setDurable(jobDetail.isDurable());
-			model.setConcurrentDisallowed(jobDetail.isConcurrentExectionDisallowed());
-			model.setJobClass(jobDetail.getJobClass().getName());
-	}
 
 	@WriteOperation
-	public boolean modifyJobStatus(@Selector String group, @Selector String name, @RequestBody String state)
-			throws SchedulerException {
-		JobKey jobKey = new JobKey(name, group);
-		JobDetail detail = scheduler.getJobDetail(jobKey);
-		if (detail == null)
-			return false;
-		else if (QuartzState.PAUSE.equals(state)) {
-			scheduler.pauseJob(jobKey);
-		} else if (QuartzState.RESUME.equals(state)) {
-			scheduler.resumeJob(jobKey);
-		} else {
-			throw new UnsupportStateChangeException(String.format("unsupported state change. state:[%s]", state));
+	public WebEndpointResponse<?> modifyJobStatus(@Selector String group, @Selector String name, @RequestBody String state) throws SchedulerException {
+		try{
+			boolean isSucess = quartzJobService.modifyJobStatus(group, name, state);
+			int status = isSucess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
+			return new WebEndpointResponse<>(status);
+		}catch(UnsupportStateChangeException e){
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
 		}
-		return true;
 	}
-
 	@WriteOperation
-	public boolean modifyJobsStatus(@Selector String group, @RequestBody String state) throws SchedulerException{
-		GroupMatcher<JobKey> jobGroupMatcher = GroupMatcher.jobGroupEquals(group);
-		Set<JobKey> jobKeys = scheduler.getJobKeys(jobGroupMatcher);
-		if (jobKeys == null || jobKeys.isEmpty()) {
-			return false;
-		}
-		else if (QuartzState.PAUSE.equals(state)) {
-			scheduler.pauseJobs(jobGroupMatcher);
-		} else if (QuartzState.RESUME.equals(state)) {
-			scheduler.resumeJobs(jobGroupMatcher);
-		} else {
-			throw new UnsupportStateChangeException(String.format("unsupported state change. state:[%s]", state));
-		}
-		return true;
-	}
+	public WebEndpointResponse<?> modifyJobsStatus(@Selector String group,@RequestBody String state) throws SchedulerException {
+		try{
+			boolean isSucess = quartzJobService.modifyJobsStatus(group, state);
+			int status = isSucess ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
 
+			return new WebEndpointResponse<>(status);
+		}catch(UnsupportStateChangeException e){
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
+		}
+	}
 }

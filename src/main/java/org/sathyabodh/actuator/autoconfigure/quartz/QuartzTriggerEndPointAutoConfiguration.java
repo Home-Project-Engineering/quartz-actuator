@@ -3,10 +3,10 @@ package org.sathyabodh.actuator.autoconfigure.quartz;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.sathyabodh.actuator.quartz.QuartzTriggerEndPoint;
-import org.sathyabodh.actuator.quartz.QuartzTriggerEndPointWebExtension;
+import org.sathyabodh.actuator.quartz.service.QuartzTriggerService;
+import org.sathyabodh.actuator.quartz.service.TriggerModelBuilder;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration;
@@ -20,14 +20,20 @@ public class QuartzTriggerEndPointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnAvailableEndpoint
-	public QuartzTriggerEndPoint quartzTriggerEndPoint(Scheduler scheduler){
-		return new QuartzTriggerEndPoint(scheduler);
+	public QuartzTriggerService quartzTriggerService(Scheduler scheduler){
+		return new QuartzTriggerService(scheduler);
 	}
 
 	@Bean
-	@ConditionalOnBean(QuartzTriggerEndPoint.class)
-	public QuartzTriggerEndPointWebExtension quartzTriggerEndPointWebExtension(QuartzTriggerEndPoint quartzTriggerEndPoint){
-		return new QuartzTriggerEndPointWebExtension(quartzTriggerEndPoint);
+	@ConditionalOnMissingBean
+	public TriggerModelBuilder quartzTriggerModelBuilder(Scheduler scheduler){
+		return new TriggerModelBuilder(scheduler);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnAvailableEndpoint
+	public QuartzTriggerEndPoint quartzTriggerEndPoint(QuartzTriggerService service,TriggerModelBuilder builder){
+		return new QuartzTriggerEndPoint(service,builder);
 	}
 }

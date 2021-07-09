@@ -9,16 +9,21 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.Trigger.TriggerState;
 import org.quartz.TriggerKey;
-import org.sathyabodh.actuator.quartz.model.TriggerDetailModel;
+import org.sathyabodh.actuator.model.TriggerDetailModel;
 
 public class TriggerModelBuilder {
+	Scheduler scheduler;
 
-	public List<TriggerDetailModel> buildTriggerDetailModel(Scheduler scheduler, JobKey jobKey) throws SchedulerException{
+	public TriggerModelBuilder(Scheduler scheduler) {
+		this.scheduler = scheduler;
+	}
+
+	public List<TriggerDetailModel> buildTriggerDetailModel(JobKey jobKey) throws SchedulerException{
 		List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobKey);
 		return triggers.stream().map(t->buildTriggerDetailModel(scheduler, t)).collect(Collectors.toList());
 	}
 
-	public TriggerDetailModel buildTriggerDetailModel(Scheduler scheduler, TriggerKey triggerKey) throws SchedulerException{
+	public TriggerDetailModel buildTriggerDetailModel(TriggerKey triggerKey) throws SchedulerException{
 		Trigger trigger = scheduler.getTrigger(triggerKey);
 		return buildTriggerDetailModel(scheduler, trigger);
 	}
