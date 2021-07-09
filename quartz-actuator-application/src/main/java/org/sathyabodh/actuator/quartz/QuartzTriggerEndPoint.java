@@ -1,10 +1,7 @@
-package main.java.org.sathyabodh.actuator.quartz;
+package org.sathyabodh.actuator.quartz;
 
-import java.text.ParseException;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import org.quartz.*;
+import org.quartz.SchedulerException;
+import org.quartz.TriggerKey;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.sathyabodh.actuator.model.GroupModel;
 import org.sathyabodh.actuator.model.TriggerDetailModel;
@@ -18,6 +15,10 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @WebEndpoint(id = "quartz-triggers")
 public class QuartzTriggerEndPoint  {

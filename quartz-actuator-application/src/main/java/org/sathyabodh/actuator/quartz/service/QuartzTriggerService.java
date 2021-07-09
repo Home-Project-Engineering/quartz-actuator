@@ -1,4 +1,4 @@
-package main.java.org.sathyabodh.actuator.quartz.service;
+package org.sathyabodh.actuator.quartz.service;
 
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -9,7 +9,6 @@ import org.quartz.impl.triggers.CronTriggerImpl;
 import org.sathyabodh.actuator.quartz.QuartzState;
 import org.sathyabodh.actuator.quartz.exception.UnsupportCronChangeExpression;
 import org.sathyabodh.actuator.quartz.exception.UnsupportStateChangeException;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
 
 import java.text.ParseException;
 import java.util.Date;

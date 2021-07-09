@@ -1,8 +1,7 @@
-package main.java.org.sathyabodh.actuator.model;
+package org.sathyabodh.actuator.model;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

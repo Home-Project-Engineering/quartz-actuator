@@ -1,15 +1,11 @@
-package main.java.org.sathyabodh.actuator.quartz.service;
+package org.sathyabodh.actuator.quartz.service;
+
+import org.quartz.*;
+import org.quartz.Trigger.TriggerState;
+import org.sathyabodh.actuator.model.TriggerDetailModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.quartz.JobKey;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.Trigger.TriggerState;
-import org.quartz.TriggerKey;
-import org.sathyabodh.actuator.model.TriggerDetailModel;
 
 public class TriggerModelBuilder {
 	Scheduler scheduler;

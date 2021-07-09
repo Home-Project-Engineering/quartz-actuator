@@ -1,28 +1,22 @@
-package main.java.org.sathyabodh.actuator.quartz;
+package org.sathyabodh.actuator.quartz;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.SchedulerException;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.sathyabodh.actuator.model.GroupModel;
-import org.sathyabodh.actuator.model.JobDetailModel;
 import org.sathyabodh.actuator.model.JobModel;
 import org.sathyabodh.actuator.quartz.exception.UnsupportStateChangeException;
 import org.sathyabodh.actuator.quartz.service.QuartzJobService;
-import org.sathyabodh.actuator.quartz.service.TriggerModelBuilder;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @Endpoint(id = "quartz-jobs")

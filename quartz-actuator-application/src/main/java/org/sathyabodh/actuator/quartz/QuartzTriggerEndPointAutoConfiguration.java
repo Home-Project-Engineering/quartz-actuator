@@ -1,8 +1,7 @@
-package main.java.org.sathyabodh.actuator.autoconfigure.quartz;
+package org.sathyabodh.actuator.quartz;
 
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
-import org.sathyabodh.actuator.quartz.QuartzTriggerEndPoint;
 import org.sathyabodh.actuator.quartz.service.QuartzTriggerService;
 import org.sathyabodh.actuator.quartz.service.TriggerModelBuilder;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;

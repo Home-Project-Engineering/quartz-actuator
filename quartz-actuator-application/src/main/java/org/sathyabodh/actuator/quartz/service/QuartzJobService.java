@@ -1,4 +1,4 @@
-package main.java.org.sathyabodh.actuator.quartz.service;
+package org.sathyabodh.actuator.quartz.service;
 
 import org.quartz.JobDetail;
 import org.quartz.JobKey;

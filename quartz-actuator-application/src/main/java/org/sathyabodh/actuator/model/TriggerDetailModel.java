@@ -1,4 +1,4 @@
-package main.java.org.sathyabodh.actuator.model;
+package org.sathyabodh.actuator.model;
 
 import lombok.Getter;
 import lombok.Setter;

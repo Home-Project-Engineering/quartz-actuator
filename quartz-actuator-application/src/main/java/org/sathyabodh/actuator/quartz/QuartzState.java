@@ -1,4 +1,4 @@
-package main.java.org.sathyabodh.actuator.quartz;
+package org.sathyabodh.actuator.quartz;
 
 public interface QuartzState {
 	String PAUSE="pause";

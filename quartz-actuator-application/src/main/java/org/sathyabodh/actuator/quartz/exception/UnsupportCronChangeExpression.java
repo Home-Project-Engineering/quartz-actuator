@@ -1,4 +1,4 @@
-package main.java.org.sathyabodh.actuator.quartz.exception;
+package org.sathyabodh.actuator.quartz.exception;
 
 public class UnsupportCronChangeExpression extends RuntimeException {
 
