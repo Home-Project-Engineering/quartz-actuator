@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>quartz-actuator</artifactId>
+		<groupId>org.quartz-actuator</groupId>
+		<version>1.1.1</version>
+	</parent>
+
+	<groupId>org.quartz-actuator</groupId>
+	<artifactId>quartz-actuator-application</artifactId>
+	<version>${parent.version}</version>
+	<packaging>jar</packaging>
+
+	<name>actuator</name>
+	<description>actuator</description>
+	<properties>
+		<yaml.name>openapi.yaml</yaml.name>
+		<jersey-version>2.32</jersey-version>
+		<jackson-version>2.10.3</jackson-version>
+		<jackson-databind-version>2.10.3</jackson-databind-version>
+		<jackson-databind-nullable-version>0.2.1</jackson-databind-nullable-version>
+		<threetenbp-version>2.9.10</threetenbp-version>
+		<junit-version>4.13</junit-version>
+		<maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
+
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
+			<version>2.3.8.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>2.3.8.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.3.8.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<version>2.3.8.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.20</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

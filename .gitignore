@@ -1,2 +1,7 @@
 /target/
 node_modules
+/shelf/
+/workspace.xml
+/.idea
+*.iml
+/.m2
