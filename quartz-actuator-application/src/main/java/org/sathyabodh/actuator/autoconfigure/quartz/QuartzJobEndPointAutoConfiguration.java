@@ -26,8 +26,6 @@ public class QuartzJobEndPointAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public QuartzJobService quartzJobService(Scheduler scheduler, ApplicationContext context) {
-		Map<String, QuartzJobEndPointImpl> beansOfType = context.getBeansOfType(QuartzJobEndPointImpl.class);
-		Map<String, TriggerModelBuilder> beansOfType2 = context.getBeansOfType(TriggerModelBuilder.class);
 		return new QuartzJobServiceImpl(scheduler);
 	}
 

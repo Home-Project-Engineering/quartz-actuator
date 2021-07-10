@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Endpoint(id = "quartz-jobs")
 public class QuartzJobEndPointImpl implements QuartzJobEndPoint {
 
 	private final QuartzJobServiceImpl quartzJobService;
