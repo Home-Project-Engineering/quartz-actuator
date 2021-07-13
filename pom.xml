@@ -87,7 +87,6 @@
 			<id>github</id>
 			<name>GitHub Home-Project-Engineering Apache Maven Packages</name>
 			<url>https://Home-Project-Engineering:${github.quartz-actuator.secret}@maven.pkg.github.com/Home-Project-Engineering/quartz-actuator</url>
-
 		</repository>
 	</distributionManagement>
 
