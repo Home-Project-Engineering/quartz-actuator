@@ -141,7 +141,7 @@
 					<workingDirectory>${project.build.directory}/generated-sources/openapi/client</workingDirectory>
 					<arguments>
 						<argument>clean</argument>
-						<argument>install</argument>
+						<argument>${Denv.maven.quartz-actuator-client.phase}</argument>
 						<argument>-ntp</argument>
 					</arguments>
 					<environmentVariables>
