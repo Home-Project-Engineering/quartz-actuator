@@ -8,7 +8,7 @@
 		<module>quartz-actuator-application</module>
 	</modules>
 
-	<groupId>org.quartz-actuator</groupId>
+	<groupId>com.softserveinc.ita.homeproject.quartz-actuator</groupId>
 	<artifactId>quartz-actuator</artifactId>
 	<version>${revision}</version>
 	<name>quartz-actuator</name>
@@ -27,6 +27,7 @@
 		<maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
 		<checkstyle.version>8.41</checkstyle.version>
 		<maven.checkstyle.plugin.version>3.1.2</maven.checkstyle.plugin.version>
+		<github.quartz-actuator.secret>${Dapi.application.dependency.quartz-actuator}</github.quartz-actuator.secret>
 	</properties>
 
 	<build>
@@ -84,8 +85,9 @@
 	<distributionManagement>
 		<repository>
 			<id>github</id>
-			<name>GitHub Illia-Shchur Apache Maven Packages</name>
-			<url>https://Illia-Shchur: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@maven.pkg.github.com/Illia-Shchur/quartz-actuator</url>
+			<name>GitHub Home-Project-Engineering Apache Maven Packages</name>
+			<url>https://Home-Project-Engineering:${github.quartz-actuator.secret}@maven.pkg.github.com/Home-Project-Engineering/quartz-actuator</url>
+
 		</repository>
 	</distributionManagement>
 

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>quartz-actuator</artifactId>
-        <groupId>org.quartz-actuator</groupId>
+        <groupId>com.softserveinc.ita.homeproject.quartz-actuator</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>

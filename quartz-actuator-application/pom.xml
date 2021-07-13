@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>quartz-actuator</artifactId>
-		<groupId>org.quartz-actuator</groupId>
+		<groupId>com.softserveinc.ita.homeproject.quartz-actuator</groupId>
 		<version>${revision}</version>
 	</parent>
 
