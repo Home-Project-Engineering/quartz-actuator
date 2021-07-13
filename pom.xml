@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<modules>
-		<module>quartz-actuator-client</module>
 		<module>quartz-actuator</module>
 	</modules>
 
@@ -18,17 +17,12 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<revision>1.0.0</revision>
+		<revision>1.1.0</revision>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.boot.version>2.3.8.RELEASE</spring.boot.version>
 		<maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
 		<lombok.version>1.18.20</lombok.version>
 		<flatten.maven.plugin.version>1.2.5</flatten.maven.plugin.version>
-		<maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
-		<checkstyle.version>8.41</checkstyle.version>
-		<maven.checkstyle.plugin.version>3.1.2</maven.checkstyle.plugin.version>
-		<github-packages-write-username>${Dapi.application.dependency.quartz-actuator.username}</github-packages-write-username>
-		<github-packages-write-token>${Dapi.application.dependency.quartz-actuator.token}</github-packages-write-token>
 	</properties>
 
 	<build>
@@ -82,13 +76,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<name>GitHub Home-Project-Engineering Apache Maven Packages</name>
-			<url>https://${github-packages-write-username}:${github-packages-write-token}@maven.pkg.github.com/Home-Project-Engineering/quartz-actuator</url>
-		</repository>
-	</distributionManagement>
-
 </project>

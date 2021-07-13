@@ -1,11 +1,11 @@
 name: Packaging and Deploying
 
 on:  
-  push:
+  pull_request:
     branches: [ master ]
 
 jobs:
-  package:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,5 +21,5 @@ jobs:
           API_TESTS_VERBOSE_LOGGING: false
         run: >-
           mvn -V -e -B -ntp
-          clean deploy
-          -maven.quartz-actuator-client.phase=deploy
+          clean install
+          -maven.quartz-actuator-client.phase=install
