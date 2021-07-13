@@ -105,7 +105,7 @@
 								<java8>true</java8>
 								<dateLibrary>java8-localdatetime</dateLibrary>
 								<library>jersey2</library>
-								<sourceFolder>/</sourceFolder>
+								<sourceFolder>src/gen/java</sourceFolder>
 								<artifactId>quartz-actuator-client</artifactId>
 								<artifactVersion>${project.parent.version}</artifactVersion>
 								<groupId>${project.groupId}</groupId>
@@ -118,7 +118,7 @@
 							</configOptions>
 							<templateDirectory>${project.build.resources[0].directory}/mustaches/client</templateDirectory>
 							<addCompileSourceRoot>false</addCompileSourceRoot>
-							<output>${project.build.outputDirectory}</output>
+							<output>${project.build.directory}/generated-sources/openapi/client</output>
 						</configuration>
 					</execution>
 				</executions>
@@ -138,7 +138,7 @@
 				<configuration>
 					<executable>mvn</executable>
 					<!-- optional -->
-					<workingDirectory>${project.build.outputDirectory}</workingDirectory>
+					<workingDirectory>${project.build.directory}/generated-sources/openapi/client</workingDirectory>
 					<arguments>
 						<argument>clean</argument>
 						<argument>install</argument>
