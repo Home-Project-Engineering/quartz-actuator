@@ -9,7 +9,6 @@
 		<version>${revision}</version>
 	</parent>
 
-	<groupId>org.quartz-actuator</groupId>
 	<artifactId>quartz-actuator-application</artifactId>
 	<version>${parent.version}</version>
 	<packaging>jar</packaging>
