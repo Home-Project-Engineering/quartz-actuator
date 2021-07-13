@@ -132,7 +132,7 @@
 						<goals>
 							<goal>exec</goal>
 						</goals>
-						<phase>${Denv.maven.quartz-actuator-client.phase}</phase>
+						<phase>${env.maven.quartz-actuator-client.phase}</phase>
 					</execution>
 				</executions>
 				<configuration>
@@ -141,7 +141,7 @@
 					<workingDirectory>${project.build.directory}/generated-sources/openapi/client</workingDirectory>
 					<arguments>
 						<argument>clean</argument>
-						<argument>${Denv.maven.quartz-actuator-client.phase}</argument>
+						<argument>${env.maven.quartz-actuator-client.phase}</argument>
 						<argument>-ntp</argument>
 					</arguments>
 					<environmentVariables>
