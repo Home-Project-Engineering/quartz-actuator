@@ -132,7 +132,7 @@
 						<goals>
 							<goal>exec</goal>
 						</goals>
-						<phase>${maven.quartz-actuator-client.phase}</phase>
+						<phase>${Denv.maven.quartz-actuator-client.phase}</phase>
 					</execution>
 				</executions>
 				<configuration>
