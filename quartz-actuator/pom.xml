@@ -105,20 +105,20 @@
 								<java8>true</java8>
 								<dateLibrary>java8-localdatetime</dateLibrary>
 								<library>jersey2</library>
-								<sourceFolder>src/gen/java/main</sourceFolder>
+								<sourceFolder>/</sourceFolder>
 								<artifactId>quartz-actuator-client</artifactId>
 								<artifactVersion>${project.parent.version}</artifactVersion>
 								<groupId>${project.groupId}</groupId>
-								<modelPackage>org.sathyabodh.actuator.opeanapi.client.model</modelPackage>
-								<apiPackage>org.sathyabodh.actuator.opeanapi.client.api</apiPackage>
-								<invokerPackage>org.sathyabodh.actuator.opeanapi.client</invokerPackage>
+								<modelPackage>org.sathyabodh.actuator.openapi.client.model</modelPackage>
+								<apiPackage>org.sathyabodh.actuator.openapi.client.api</apiPackage>
+								<invokerPackage>org.sathyabodh.actuator.openapi.client</invokerPackage>
 								<parentArtifactId>${project.parent.artifactId}</parentArtifactId>
 								<parentGroupId>${project.parent.groupId}</parentGroupId>
 								<parentVersion>${project.parent.version}</parentVersion>
 							</configOptions>
 							<templateDirectory>${project.build.resources[0].directory}/mustaches/client</templateDirectory>
 							<addCompileSourceRoot>false</addCompileSourceRoot>
-							<output>${project.build.directory}/generated-sources/openapi/client</output>
+							<output>${project.build.outputDirectory}</output>
 						</configuration>
 					</execution>
 				</executions>
@@ -138,7 +138,7 @@
 				<configuration>
 					<executable>mvn</executable>
 					<!-- optional -->
-					<workingDirectory>${project.build.directory}/generated-sources/openapi/client</workingDirectory>
+					<workingDirectory>${project.build.outputDirectory}</workingDirectory>
 					<arguments>
 						<argument>clean</argument>
 						<argument>install</argument>
