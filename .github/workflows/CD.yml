@@ -22,4 +22,5 @@ jobs:
         run: >-
           mvn -V -e -B -ntp
           clean deploy
-          -Dapi.application.dependency.quartz-actuator=${{secrets.SECRET_HPE_QUARTZ_ACTUATOR_LIBRARY}}
+          -Dapi.application.dependency.quartz-actuator.token=${{secrets.SECRET_HPE_QUARTZ_ACTUATOR_LIBRARY}}
+          -Dapi.application.dependency.quartz-actuator.username=${{secrets.SECRET_HPE_QUARTZ_ACTUATOR_LIBRARY_USERNAME}}

@@ -4,12 +4,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>quartz-actuator</artifactId>
-		<groupId>com.softserveinc.ita.homeproject.quartz-actuator</groupId>
+		<artifactId>quartz-actuator-project</artifactId>
+		<groupId>tech.home-project-engineering.quartz-actuator-project</groupId>
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>quartz-actuator-application</artifactId>
+	<artifactId>quartz-actuator</artifactId>
 	<version>${parent.version}</version>
 	<packaging>jar</packaging>
 
