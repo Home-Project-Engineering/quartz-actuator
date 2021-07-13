@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>quartz-actuator-project</artifactId>
-		<groupId>tech.home-project-engineering.quartz-actuator-project</groupId>
+		<groupId>tech.home-project-engineering</groupId>
 		<version>${revision}</version>
 	</parent>
 
