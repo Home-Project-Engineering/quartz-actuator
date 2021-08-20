@@ -318,7 +318,14 @@ paths:
         default:
           $ref: '#/components/responses/InternalServerError'
 
+security:
+  - basicAuth: [ ]
+
 components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
   schemas:
     ApiError:
       type: object
