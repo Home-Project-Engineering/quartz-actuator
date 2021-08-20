@@ -29,7 +29,7 @@ paths:
       operationId: getAllTriggers
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -58,7 +58,7 @@ paths:
             type: string
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -87,7 +87,7 @@ paths:
       operationId: setTriggersCron
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -123,7 +123,7 @@ paths:
       operationId: setTriggerCron
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -155,7 +155,7 @@ paths:
       operationId: getTriggerByGroupAndName
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -178,7 +178,7 @@ paths:
       operationId: getAllJobs
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -207,7 +207,7 @@ paths:
             type: string
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -236,7 +236,7 @@ paths:
       operationId: setJobsState
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -272,7 +272,7 @@ paths:
       operationId: setJobState
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -304,7 +304,7 @@ paths:
       operationId: getJobByGroupAndName
       responses:
         200:
-          $ref: '#/components/schemas/GroupModel'
+          $ref: '#/components/responses/GroupModelResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -469,6 +469,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiError'
+    GroupModelResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GroupModel"
 
   requestBodies:
     cron:
